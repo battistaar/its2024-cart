@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { CART } from './cart';
+import { getVAT } from './cart-utils';
+import { CartItem } from './cart-item.entity';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'its-cart';
+  items = CART;
+
+  vat = getVAT('IT');
+
+  changeQuantity(item: CartItem, newQuantity: number) {
+    item.quantity = newQuantity;
+  }
 }
