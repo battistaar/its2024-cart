@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CartItem } from '../../cart-item.entity';
 import { getDiscountAmount, getDiscountedPrice, getPrice } from '../../cart-utils';
 
