@@ -1,53 +1,45 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CartItem } from '../../cart-item.entity';
 import { getTransportFee, parseItem } from '../../cart-utils';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.css'
+  styleUrl: './summary.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SummaryComponent {
+export class SummaryComponent implements OnChanges {
   @Input()
   items: CartItem[] = [];
 
   @Input()
   vat: number = 0;
 
-  protected calculateItems() {
-    return this.items.map(item => parseItem(item, this.vat));
+  summary = this.updateSummary();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['items'] || changes['vat']) {
+      this.summary = this.updateSummary();
+    }
   }
 
-  getNetTotal() {
-    const calculatedItems = this.calculateItems();
-
-    return calculatedItems.reduce((total, item) => {
-        return total + item.discountedPrice;
-      }, 0);
-  }
-
-  getVatTotal() {
-    const calculatedItems = this.calculateItems();
-    return calculatedItems.reduce((total, item) => {
-        return total + item.vatAmount;
-      }, 0);
-  }
-
-  getTransportFee() {
-    const calculatedItems = this.calculateItems();
-    const weight = calculatedItems.reduce((total, item) => {
-        return total + item.weight;
-      }, 0);
-
-    return getTransportFee(weight);
-  }
-
-  getTotal() {
-    const calculatedItems = this.calculateItems();
-    const total = calculatedItems.reduce((total, item) => {
-        return total + item.price;
-      }, 0);
-
-    return total + this.getTransportFee();
+  private updateSummary() {
+    const tmpSummary = this.items.reduce((summ, curr) => {
+      const calculated = parseItem(curr, this.vat);
+      return {
+        netTotal: summ.netTotal + calculated.discountedPrice,
+        vatTotal: summ.vatTotal + calculated.vatAmount,
+        totalWeight: summ.totalWeight + calculated.weight,
+        total: summ.total + calculated.price
+      }
+    }, {
+      netTotal: 0,
+      vatTotal: 0,
+      totalWeight: 0,
+      total: 0
+    });
+    const transport = getTransportFee(tmpSummary.totalWeight)
+    tmpSummary.total += transport;
+    return {...tmpSummary, transport};
   }
 }

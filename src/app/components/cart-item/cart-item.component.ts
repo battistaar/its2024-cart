@@ -19,7 +19,6 @@ export class CartItemComponent {
   onQuantityChange = new EventEmitter<number>();
 
   getItemPrice(item: CartItem) {
-    console.log('getItemPrice');
     const discountedPrice = getDiscountedPrice(item.netPrice, item.discount);
     return getPrice(discountedPrice * item.quantity, this.vat);
   }
