@@ -9,8 +9,12 @@ import { getTransportFee, parseItem } from '../../cart-utils';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SummaryComponent implements OnChanges {
+  protected _items: CartItem[] = [];
+
   @Input()
-  items: CartItem[] = [];
+  set items(value: CartItem[] | null) {
+    this._items = value ? value : [];
+  }
 
   @Input()
   vat: number = 0;
@@ -24,7 +28,7 @@ export class SummaryComponent implements OnChanges {
   }
 
   private updateSummary() {
-    const tmpSummary = this.items.reduce((summ, curr) => {
+    const tmpSummary = this._items.reduce((summ, curr) => {
       const calculated = parseItem(curr, this.vat);
       return {
         netTotal: summ.netTotal + calculated.discountedPrice,
