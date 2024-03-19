@@ -14,10 +14,13 @@ export class CartSourceService {
   }
 
   setQuantity(id: string, quantity: number) {
-    const index = this._items$.value.findIndex(item => item.id === id);
-    const tmp = structuredClone(this._items$.value);
-    tmp[index].quantity = quantity;
-    this._items$.next(tmp);
+    this.http.patch<CartItem>(`/api/cart-items/${id}`, { quantity })
+      .subscribe(updated => {
+        const index = this._items$.value.findIndex(item => item.id === id);
+        const tmp = structuredClone(this._items$.value);
+        tmp[index] = updated;
+        this._items$.next(tmp);
+      })
   }
 
   fetch() {
