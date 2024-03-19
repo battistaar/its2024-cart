@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { CART } from './cart';
 import { getVAT } from './cart-utils';
 import { CartItem } from './cart-item.entity';
 import { CartSourceService } from './services/cart-source.service';
+import { VatService } from './services/vat.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   items$ = this.cartSrv.items$;
 
-  vat = getVAT('IT');
+  vat$ = this.vatSrv.vat$;
 
-  constructor(protected cartSrv: CartSourceService) {}
+  constructor(protected cartSrv: CartSourceService,
+              protected vatSrv: VatService) {}
+
+  ngOnInit(): void {
+    this.vatSrv.setCountry('IT');
+  }
 
   trackById(_: number, item: CartItem) {
     return item.id;

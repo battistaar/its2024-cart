@@ -12,15 +12,18 @@ export class CartItemComponent {
   @Input()
   item: CartItem | null = null;
 
+  protected _vat: number = 0;
   @Input()
-  vat: number = 0;
+  set vat(value: number | null) {
+    this._vat = value !== null ? value : 0;
+  };
 
   @Output()
   onQuantityChange = new EventEmitter<number>();
 
   getItemPrice(item: CartItem) {
     const discountedPrice = getDiscountedPrice(item.netPrice, item.discount);
-    return getPrice(discountedPrice * item.quantity, this.vat);
+    return getPrice(discountedPrice * item.quantity, this._vat);
   }
 
   getDiscountAmount(item: CartItem) {

@@ -16,8 +16,11 @@ export class SummaryComponent implements OnChanges {
     this._items = value ? value : [];
   }
 
+  protected _vat: number = 0;
   @Input()
-  vat: number = 0;
+  set vat(value: number | null) {
+    this._vat = value !== null ? value : 0;
+  };
 
   summary = this.updateSummary();
 
@@ -29,7 +32,7 @@ export class SummaryComponent implements OnChanges {
 
   private updateSummary() {
     const tmpSummary = this._items.reduce((summ, curr) => {
-      const calculated = parseItem(curr, this.vat);
+      const calculated = parseItem(curr, this._vat);
       return {
         netTotal: summ.netTotal + calculated.discountedPrice,
         vatTotal: summ.vatTotal + calculated.vatAmount,
