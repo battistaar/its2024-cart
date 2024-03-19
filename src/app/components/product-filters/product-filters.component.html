@@ -1,0 +1,19 @@
+<form [formGroup]="filtersForm">
+  <div class="row align-items-end">
+    <div class="col">
+      <label class="form-label">Name:</label>
+      <input formControlName="name" type="text" class="form-control" placeholder="Product name">
+    </div>
+    <div class="col">
+      <label class="form-label">Min Price:</label>
+      <input formControlName="minPrice" type="number" class="form-control">
+    </div>
+    <div class="col">
+      <label class="form-label">Max Price:</label>
+      <input formControlName="maxPrice" type="number" class="form-control">
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>

@@ -1,25 +1,9 @@
 <div class="container-fluid mt-5">
   <div class="row">
     <div class="col">
-      <form [formGroup]="filters">
-        <div class="row align-items-end">
-          <div class="col">
-            <label class="form-label">Name:</label>
-            <input formControlName="name" type="text" class="form-control" placeholder="Product name">
-          </div>
-          <div class="col">
-            <label class="form-label">Min Price:</label>
-            <input formControlName="minPrice" type="number" class="form-control">
-          </div>
-          <div class="col">
-            <label class="form-label">Max Price:</label>
-            <input formControlName="maxPrice" type="number" class="form-control">
-          </div>
-          <div class="col">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </div>
-        </div>
-      </form>
+      <app-product-filters
+        [filters]="filters$ | async"
+        (filterChange)="applyFilters($event)"></app-product-filters>
 
       <div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
         <div class="col" *ngFor="let product of products$ | async">
