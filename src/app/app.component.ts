@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getVAT } from './cart-utils';
-import { CartItem } from './cart-item.entity';
+import { CartItem } from './entities/cart-item.entity';
 import { CartSourceService } from './services/cart-source.service';
 import { VatService } from './services/vat.service';
 
