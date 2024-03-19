@@ -4,4 +4,5 @@ export interface  Product {
   netPrice: number;
   weight: number;
   discount: number;
+  description: string;
 }

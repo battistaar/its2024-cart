@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import localeIt from "@angular/common/locales/it";
@@ -12,6 +12,8 @@ import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import { DiscountAmountPipe } from './pipes/discount-amount.pipe';
 import { CartSourceService } from './services/cart-source.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { ProductsComponent } from './pages/products/products.component';
 registerLocaleData(localeIt);
 
 @NgModule({
@@ -19,12 +21,15 @@ registerLocaleData(localeIt);
     AppComponent,
     CartItemComponent,
     SummaryComponent,
-    DiscountAmountPipe
+    DiscountAmountPipe,
+    CheckoutComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbModule
   ],

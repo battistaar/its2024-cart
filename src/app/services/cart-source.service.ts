@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CART } from '../cart';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../entities/cart-item.entity';
 import { HttpClient } from '@angular/common/http';
