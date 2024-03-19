@@ -11,6 +11,7 @@ import localeIt from "@angular/common/locales/it";
 import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import { DiscountAmountPipe } from './pipes/discount-amount.pipe';
 import { CartSourceService } from './services/cart-source.service';
+import { HttpClientModule } from '@angular/common/http';
 registerLocaleData(localeIt);
 
 @NgModule({
@@ -24,6 +25,7 @@ registerLocaleData(localeIt);
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     NgbModule
   ],
   providers: [
