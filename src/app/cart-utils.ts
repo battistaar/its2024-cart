@@ -44,6 +44,7 @@ export function parseItem(item: CartItem, vat: number) {
 
   let weight = item.product.weight * item.quantity;
   return {
+    id: item.id,
     name: item.product.name,
     quantity: item.quantity,
     weight: weight,

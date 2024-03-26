@@ -1,0 +1,16 @@
+<div class="text-center mb-3">
+  <h4>{{total$ | async | currency}}</h4>
+  <a class="btn btn-success" [routerLink]="['/checkout']">checkout now</a>
+</div>
+<div class="list-group">
+  <a class="list-group-item" *ngFor="let item of items$ | async">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{item.name}}</h5>
+      <small>x{{item.quantity}}</small>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <small>{{ item.price| currency}}</small>
+      <button class="btn btn-link" (click)="remove(item.id)">remove</button>
+    </div>
+  </a>
+</div>

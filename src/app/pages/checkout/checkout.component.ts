@@ -21,7 +21,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               protected vatSrv: VatService) {}
 
   ngOnInit(): void {
-    this.vatSrv.setCountry('IT');
 
     this.updateQuantity$
       .pipe(

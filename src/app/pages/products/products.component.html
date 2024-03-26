@@ -1,31 +1,14 @@
-<div class="container-fluid mt-5">
-  <div class="row">
-    <div class="col">
-      <app-product-filters
-        [filters]="filters$ | async"
-        (filterChange)="applyFilters($event)"></app-product-filters>
+<app-product-filters
+  [filters]="filters$ | async"
+  (filterChange)="applyFilters($event)"></app-product-filters>
 
-      <div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
-        <div class="col" *ngFor="let product of products$ | async">
-          <div class="card mt-2">
-            <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{product.netPrice | currency}}</h6>
-              <p class="card-text">{{product.description}}</p>
-              <a href="#" class="btn btn-link">details</a>
-            </div>
-            <div class="card-footer text-muted text-end">
-              <input type="number" value="1" class="product-card-quantity">
-              <button class="btn btn-link">Add</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col side-cart">
-      side cart
-    </div>
+<div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
+  <div class="col" *ngFor="let product of products$ | async">
+    <app-product-card
+      [product]="product"
+      (add)="addProduct($event)"
+      (detail)="goToDetail(product.id)"
+      ></app-product-card>
   </div>
-
 </div>
 

@@ -1,0 +1,12 @@
+<div class="card mt-2" *ngIf="!!product">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{product.netPrice | currency}}</h6>
+    <p class="card-text">{{product.description}}</p>
+    <a href class="btn btn-link" (click)="onDetail($event)">details</a>
+  </div>
+  <div class="card-footer text-muted text-end">
+    <input type="number" [(ngModel)]="quantity" class="product-card-quantity">
+    <button class="btn btn-link" (click)="onAdd()" [disabled]="quantity <= 0">Add</button>
+  </div>
+</div>

@@ -6,6 +6,8 @@ import { debounceTime, filter, map, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isNil, omitBy } from 'lodash';
 import { Product } from '../../entities/product.entity';
+import { CartSourceService } from '../../services/cart-source.service';
+import { ProductCartAddEvent } from '../../components/product-card/product-card.component';
 
 @Component({
   selector: 'app-products',
@@ -29,6 +31,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   protected destroyed$ = new Subject<void>();
 
   constructor(protected productSrv: ProductService,
+              protected cartSrv: CartSourceService,
               protected router: Router,
               protected activatedRoute: ActivatedRoute){}
 
@@ -54,5 +57,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   applyFilters(value: ProductFilters) {
     this.updateQueryParams$.next(value);
+  }
+
+  addProduct(event: ProductCartAddEvent) {
+    console.log('add', event);
+    this.cartSrv.add(event.productId, event.quantity);
+  }
+
+  goToDetail(id: string) {
+    console.log('detail', id);
+    this.router.navigate(['/products', id]);
   }
 }

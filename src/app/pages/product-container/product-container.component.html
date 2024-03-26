@@ -1,0 +1,11 @@
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col side-cart" *ngIf="hasItems$ | async">
+      <app-side-cart></app-side-cart>
+    </div>
+  </div>
+</div>
+
