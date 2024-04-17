@@ -1,1 +1,16 @@
+<nav class="navbar navbar-dark bg-primary mb-3">
+  <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/products']">ITS-SHOP</a>
+      <ul class="navbar-nav mr-2">
+        <app-nav-user
+          [user]="currentUser$ | async"
+          (logout)="logout()"
+          *ngIf="currentUser$ | async"
+        ></app-nav-user>
+        <li class="nav-item" *ngIf="!(currentUser$ | async)">
+          <a class="nav-link" [routerLink]="['login']">Login</a>
+        </li>
+      </ul>
+  </div>
+</nav>
 <router-outlet></router-outlet>

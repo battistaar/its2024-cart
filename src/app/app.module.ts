@@ -11,7 +11,7 @@ import localeIt from "@angular/common/locales/it";
 import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import { DiscountAmountPipe } from './pipes/discount-amount.pipe';
 import { CartSourceService } from './services/cart-source.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
@@ -19,6 +19,10 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { SideCartComponent } from './components/side-cart/side-cart.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductContainerComponent } from './pages/product-container/product-container.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthInterceptor } from './utils/auth.interceptor';
+import { NavUserComponent } from './components/nav-user/nav-user.component';
+import { IfAuthenticatedDirective } from './directives/if-authenticated.directive';
 registerLocaleData(localeIt);
 
 @NgModule({
@@ -33,7 +37,10 @@ registerLocaleData(localeIt);
     ProductCardComponent,
     SideCartComponent,
     ProductDetailComponent,
-    ProductContainerComponent
+    ProductContainerComponent,
+    LoginComponent,
+    NavUserComponent,
+    IfAuthenticatedDirective
   ],
   imports: [
     BrowserModule,
@@ -46,6 +53,7 @@ registerLocaleData(localeIt);
   providers: [
     {provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR'},
     {provide: LOCALE_ID, useValue: 'it'},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     CurrencyPipe,
     CartSourceService
   ],

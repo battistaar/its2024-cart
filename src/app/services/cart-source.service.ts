@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../entities/cart-item.entity';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class CartSourceService {
   protected _items$ = new BehaviorSubject<CartItem[]>([]);
   items$ = this._items$.asObservable();
 
-  constructor(protected http: HttpClient) {
-    this.fetch();
+  constructor(protected http: HttpClient,
+              protected authSrv: AuthService
+  ) {
+    this.authSrv.currentUser$
+      .subscribe(user => {
+        if (user) {
+          this.fetch();
+        } else {
+          this._items$.next([]);
+        }
+      })
   }
 
   setQuantity(id: string, quantity: number) {

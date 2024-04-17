@@ -5,7 +5,7 @@
     <p class="card-text">{{product.description}}</p>
     <a href class="btn btn-link" (click)="onDetail($event)">details</a>
   </div>
-  <div class="card-footer text-muted text-end">
+  <div class="card-footer text-muted text-end" *ifAuthenticated>
     <input type="number" [(ngModel)]="quantity" class="product-card-quantity">
     <button class="btn btn-link" (click)="onAdd()" [disabled]="quantity <= 0">Add</button>
   </div>

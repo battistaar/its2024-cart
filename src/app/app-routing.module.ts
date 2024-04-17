@@ -6,12 +6,18 @@ import { productFiltersResolver } from './resolvers/product-filters.resolver';
 import { ProductsResolver } from './resolvers/products.resolver';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductContainerComponent } from './pages/product-container/product-container.component';
+import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/products',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'products',
@@ -34,6 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
+    canActivate: [authGuard],
     component: CheckoutComponent
   }
 ];

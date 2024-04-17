@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VatService } from './services/vat.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,18 @@ import { VatService } from './services/vat.service';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private vatSrv: VatService) {}
+  currentUser$ = this.authSrv.currentUser$;
+
+  constructor(
+    private vatSrv: VatService,
+    private authSrv: AuthService
+  ) {}
 
   ngOnInit(): void {
       this.vatSrv.setCountry('IT');
+  }
+
+  logout() {
+    this.authSrv.logout();
   }
 }
